@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "dish-recipe"
+version = "0.1.0"
+description = "Cooking dishes"
+authors = ["AndrewTarev <153756623+AndrewTarev@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.111.1"
+asyncpg = "^0.29.0"
+alembic = "^1.13.2"
+black = "^24.4.2"
+fastapi-users = {extras = ["sqlalchemy"], version = "^13.0.0"}
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
