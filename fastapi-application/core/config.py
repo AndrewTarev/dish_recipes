@@ -49,7 +49,7 @@ class DatabaseConfig(BaseSettings):
 
     @property
     def url(self):
-        return f"postgresql+asyncpg://{self.postgres_user}:{self.POSTGRES_PASSWORD}@{self.POSTGRES_HOST}:{self.POSTGRES_PORT}/{self.POSTGRES_NAME}"
+        return f"postgresql+asyncpg://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@{self.POSTGRES_HOST}:{self.POSTGRES_PORT}/{self.POSTGRES_NAME}"
 
 
 class Settings(BaseModel):
