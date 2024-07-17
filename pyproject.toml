@@ -12,6 +12,7 @@ asyncpg = "^0.29.0"
 alembic = "^1.13.2"
 black = "^24.4.2"
 fastapi-users = {extras = ["sqlalchemy"], version = "^13.0.0"}
+pydantic-settings = "^2.3.4"
 
 
 [build-system]
