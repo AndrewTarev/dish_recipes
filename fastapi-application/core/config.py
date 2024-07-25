@@ -1,8 +1,14 @@
+from dotenv import find_dotenv, load_dotenv
 from pydantic import BaseModel
 from pydantic_settings import (
     BaseSettings,
     SettingsConfigDict,
 )
+
+if not find_dotenv():
+    exit("Переменные окружения не загружены, так как отсутствует файл .env")
+else:
+    load_dotenv()
 
 
 class RunConfig(BaseModel):
@@ -21,21 +27,27 @@ class ApiPrefix(BaseModel):
     prefix: str = "/api"
     v1: ApiV1Prefix = ApiV1Prefix()
 
+    @property
+    def bearer_token_url(self) -> str:
+        # api/v1/auth/login
+        parts = (self.prefix, self.v1.prefix, self.v1.auth, "/login")
+        path = "".join(parts)
+        # return path[1:]
+        return path.removeprefix("/")
 
-class AccessToken(BaseModel):
+
+class AccessToken(BaseSettings):
     lifetime_seconds: int = 3600
+    reset_password_token_secret: str
+    verification_token_secret: str
 
 
 class DatabaseConfig(BaseSettings):
-    model_config = SettingsConfigDict(
-        env_file=(".env.template", ".env"),
-    )
-
-    POSTGRES_USER: str
-    POSTGRES_PASSWORD: str
     POSTGRES_HOST: str
     POSTGRES_PORT: int
     POSTGRES_NAME: str
+    POSTGRES_USER: str
+    POSTGRES_PASSWORD: str
 
     echo: bool = False
     echo_pool: bool = False
@@ -57,6 +69,9 @@ class DatabaseConfig(BaseSettings):
 
 
 class Settings(BaseModel):
+    model_config = SettingsConfigDict(
+        env_file=(".env.template", ".env"),
+    )
     run: RunConfig = RunConfig()
     api: ApiPrefix = ApiPrefix()
     db: DatabaseConfig = DatabaseConfig()
