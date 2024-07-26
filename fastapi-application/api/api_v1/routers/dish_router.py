@@ -4,16 +4,18 @@ from fastapi import APIRouter, Depends, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from api.api_v1.cruds import dish_crud
-from api.api_v1.fastapi_users import current_active_user, current_active_superuser
+from api.api_v1.fastapi_users import current_active_superuser
 from api.dependencies.dish_dependencies import get_dish_by_id
 from core import settings
-from core.models import Dish, User, db_helper
+from core.models import Dish, db_helper
 from core.schemas.dish import DishOut, DishIn, DishUpdate
 
 router = APIRouter(
     prefix=settings.api.v1.dishes,
     tags=["Dishes"],
 )
+
+
 
 
 @router.get(
