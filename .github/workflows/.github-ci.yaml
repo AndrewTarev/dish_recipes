@@ -25,4 +25,4 @@ jobs:
 
     - name: Run isort
       run: |
-        isort .
+        isort --check-only src/
