@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class Dish(Base, IdIntPkMixin):
     __tablename__ = "dish"
-    name_dish: Mapped[str] = mapped_column(String(30), nullable=False)
+    name_dish: Mapped[str] = mapped_column(String(30), unique=True, nullable=False)
 
     recipe: Mapped[List["Recipe"]] = relationship(
         back_populates="dish", cascade="all, delete-orphan"
