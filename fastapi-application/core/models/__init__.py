@@ -7,9 +7,9 @@ __ALL__ = (
     "AccessToken",
 )
 
-from .base import Base
-from .db_helper import db_helper
+from .common.db_helper import db_helper
+from .common.access_token import AccessToken
+from .common.base import Base
 from .user import User
 from .dish import Dish
-from .recipes import Recipe
-from .access_token import AccessToken
+from .recipe import Recipe
