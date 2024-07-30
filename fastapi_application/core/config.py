@@ -44,6 +44,15 @@ class AccessToken(BaseSettings):
     verification_token_secret: str
 
 
+class RedisConfig(BaseSettings):
+    REDIS_HOST: str
+    REDIS_PORT: int
+
+    @property
+    def url(self):
+        return f"redis://{self.REDIS_HOST}:{self.REDIS_PORT}"
+
+
 class DatabaseConfig(BaseSettings):
     POSTGRES_HOST: str
     POSTGRES_PORT: int
@@ -51,7 +60,7 @@ class DatabaseConfig(BaseSettings):
     POSTGRES_USER: str
     POSTGRES_PASSWORD: str
 
-    echo: bool = False
+    echo: bool = True
     echo_pool: bool = False
     pool_size: int = 50
     max_overflow: int = 10
@@ -70,13 +79,32 @@ class DatabaseConfig(BaseSettings):
         return f"postgresql+asyncpg://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@{self.POSTGRES_HOST}:{self.POSTGRES_PORT}/{self.POSTGRES_NAME}"
 
 
+class TestingConfig(BaseSettings):
+    POSTGRES_HOST: str = "localhost"
+    POSTGRES_PORT: int = 5430
+    POSTGRES_NAME: str = "test_db"
+    POSTGRES_USER: str = "postgres"
+    POSTGRES_PASSWORD: str = "postgres"
+
+    echo: bool = True
+    echo_pool: bool = False
+    pool_size: int = 50
+    max_overflow: int = 10
+
+    @property
+    def url(self):
+        return f"postgresql+asyncpg://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@{self.POSTGRES_HOST}:{self.POSTGRES_PORT}/{self.POSTGRES_NAME}"
+
+
 class Settings(BaseModel):
     model_config = SettingsConfigDict(
         env_file=(".env.template", ".env"),
     )
+    redis: RedisConfig = RedisConfig()
     run: RunConfig = RunConfig()
     api: ApiPrefix = ApiPrefix()
     db: DatabaseConfig = DatabaseConfig()
+    test_db: TestingConfig = TestingConfig()
     access_token: AccessToken = AccessToken()
 
 

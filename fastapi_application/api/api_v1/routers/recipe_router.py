@@ -4,11 +4,19 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from api.api_v1.cruds import recipe_crud
-from api.api_v1.cruds.recipe_crud import get_recipe, update_recipe, delete_client
+from api.api_v1.cruds.recipe_crud import (
+    get_recipe,
+    update_recipe,
+    delete_client,
+    get_all_recipes_by_dish,
+)
 from api.api_v1.fastapi_users import current_active_user, current_active_superuser
 from core import settings
 from core.models import db_helper, Recipe, User
 from core.schemas.recipe import RecipeOut, RecipeIn, RecipeUpdate
+
+from fastapi_cache.decorator import cache
+
 
 router = APIRouter(
     prefix=settings.api.v1.recipes,
@@ -49,6 +57,21 @@ async def get_recipe_by_id(
     return await get_recipe(
         session=session,
         recipe_id=recipe_id,
+    )
+
+
+@router.get(
+    "/dish_name/{dish_name}",
+    response_model=list[RecipeOut],
+)
+@cache(expire=30)
+async def get_recipe_by_dish_name(
+    dish_name: str,
+    session: AsyncSession = Depends(db_helper.session_getter),
+):
+    return await get_all_recipes_by_dish(
+        session=session,
+        dish_name=dish_name,
     )
 
 

@@ -27,7 +27,7 @@ async def create_dish(
         if e:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail=f"Такие блюдо уже существует",
+                detail=f"Такое блюдо уже существует",
             )
 
 

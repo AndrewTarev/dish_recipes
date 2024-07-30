@@ -15,6 +15,10 @@ fastapi-users = {extras = ["sqlalchemy"], version = "^13.0.0"}
 pydantic-settings = "^2.3.4"
 isort = "^5.13.2"
 mypy = "^1.11.0"
+fastapi-cache2 = {extras = ["redis"], version = "^0.2.2"}
+gunicorn = "^22.0.0"
+pytest = "^8.3.2"
+pytest-asyncio = "^0.23.8"
 
 
 [build-system]

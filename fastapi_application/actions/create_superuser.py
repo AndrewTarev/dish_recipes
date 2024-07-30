@@ -2,6 +2,8 @@ import asyncio
 import contextlib
 from os import getenv
 
+from fastapi_users.exceptions import UserAlreadyExists
+
 from api.dependencies.authentication import get_users_db
 from api.dependencies.authentication import get_user_manager
 from core.authentication.user_manager import UserManager
@@ -51,13 +53,16 @@ async def create_superuser(
         is_superuser=is_superuser,
         is_verified=is_verified,
     )
-    async with db_helper.session_factory() as session:
-        async with get_users_db_context(session) as users_db:
-            async with get_user_manager_context(users_db) as user_manager:
-                return await create_user(
-                    user_manager=user_manager,
-                    user_create=user_create,
-                )
+    try:
+        async with db_helper.session_factory() as session:
+            async with get_users_db_context(session) as users_db:
+                async with get_user_manager_context(users_db) as user_manager:
+                    return await create_user(
+                        user_manager=user_manager,
+                        user_create=user_create,
+                    )
+    except UserAlreadyExists:
+        print(f"User {email} already exists")
 
 
 if __name__ == "__main__":
