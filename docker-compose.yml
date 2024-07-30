@@ -1,0 +1,47 @@
+version: "3.7"
+
+services:
+  db:
+    image: postgres:15
+    env_file:
+      - fastapi_application/.env
+      - fastapi_application/.env.template
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db/:/var/lib/postgresql/data
+    networks:
+      - my_network
+
+  redis:
+    image: redis:7
+    container_name: redis_app
+    env_file:
+      - fastapi_application/.env
+      - fastapi_application/.env.template
+    ports:
+      - "6379:6379"
+    networks:
+      - my_network
+
+
+  app:
+    build:
+      dockerfile: Dockerfile
+    stop_signal: SIGKILL
+    env_file:
+      - fastapi_application/.env
+      - fastapi_application/.env.template
+    container_name: fastapi_app
+    ports:
+      - "8000:8000"
+    command: ["/app/fastapi_application/docker-entrypoint.sh"]
+    depends_on:
+      - db
+      - redis
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge
