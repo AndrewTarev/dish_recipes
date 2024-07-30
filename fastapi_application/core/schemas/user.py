@@ -4,12 +4,12 @@ from core.models.types.user_id import UserIdType
 
 
 class UserRead(schemas.BaseUser[UserIdType]):
-    pass
+    nickname: str
 
 
 class UserCreate(schemas.BaseUserCreate):
-    pass
+    nickname: str
 
 
 class UserUpdate(schemas.BaseUserUpdate):
-    pass
+    nickname: str = None

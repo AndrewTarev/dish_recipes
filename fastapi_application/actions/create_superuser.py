@@ -23,6 +23,7 @@ get_user_manager_context = contextlib.asynccontextmanager(get_user_manager)
 
 default_email = getenv("DEFAULT_EMAIL", "admin@admin.com")
 default_password = getenv("DEFAULT_PASSWORD", "abc")
+default_nickname = getenv("DEFAULT_NICKNAME", "superuser")
 default_is_active = True
 default_is_superuser = True
 default_is_verified = True
@@ -42,6 +43,7 @@ async def create_user(
 async def create_superuser(
     email: str = default_email,
     password: str = default_password,
+    nickname: str = default_nickname,
     is_active: bool = default_is_active,
     is_superuser: bool = default_is_superuser,
     is_verified: bool = default_is_verified,
@@ -49,6 +51,7 @@ async def create_superuser(
     user_create = UserCreate(
         email=email,
         password=password,
+        nickname=nickname,
         is_active=is_active,
         is_superuser=is_superuser,
         is_verified=is_verified,
@@ -62,7 +65,7 @@ async def create_superuser(
                         user_create=user_create,
                     )
     except UserAlreadyExists:
-        print(f"User {email} already exists")
+        print("Superuser already exists")
 
 
 if __name__ == "__main__":
