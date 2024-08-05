@@ -3,18 +3,19 @@
 from httpx import AsyncClient
 import pytest
 
+from fastapi_application.actions.create_superuser import create_superuser
+from tests.conftest import async_session
+from tests.settings_test import UserTest, login_credentials_schema
+
 
 @pytest.mark.asyncio
 async def test_register_user(ac: AsyncClient) -> None:
     response = await ac.post(
         "/api/v1/auth/register",
         json={
-            "email": "user@example.com",
-            "password": "string",
-            "is_active": True,
-            "is_superuser": False,
-            "is_verified": False,
-            "nickname": "string",
+            "email": UserTest.EMAIL,
+            "password": UserTest.PASSWORD,
+            "nickname": UserTest.NICKNAME,
         },
     )
     assert response.status_code == 201
@@ -24,9 +25,24 @@ async def test_register_user(ac: AsyncClient) -> None:
 async def test_login_user(ac: AsyncClient) -> None:
     response = await ac.post(
         "/api/v1/auth/login",
-        json={
-            "username": "user@example.com",
-            "password": "string",
-        },
+        data=login_credentials_schema,
     )
     assert response.status_code == 200
+
+
+@pytest.mark.asyncio
+async def test_logout_user(ac: AsyncClient) -> None:
+    response = await ac.post("/api/v1/auth/logout")
+    assert response.status_code == 200
+
+
+@pytest.mark.asyncio
+async def test_create_superuser(ac: AsyncClient) -> None:
+    await create_superuser(async_session)
+
+
+# @pytest.mark.asyncio
+# async def test_create_dishes(ac: AsyncClient) -> None:
+#     response = await ac.post(
+#         "/api/v1/auth/create_dishes",
+#     )
