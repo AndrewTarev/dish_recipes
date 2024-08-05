@@ -79,7 +79,7 @@ class DatabaseConfig(BaseSettings):
         return f"postgresql+asyncpg://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@{self.POSTGRES_HOST}:{self.POSTGRES_PORT}/{self.POSTGRES_NAME}"
 
 
-class TestingConfig(BaseSettings):
+class TestingConfig(BaseModel):
     POSTGRES_HOST: str = "localhost"
     POSTGRES_PORT: int = 5430
     POSTGRES_NAME: str = "test_db"
@@ -109,3 +109,7 @@ class Settings(BaseModel):
 
 
 settings = Settings()
+
+
+if __name__ == "__main__":
+    print(settings.test_db.url)

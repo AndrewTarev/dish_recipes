@@ -3,8 +3,8 @@ from typing import Annotated
 from fastapi import Path, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from api.api_v1.cruds import dish_crud
-from core.models import db_helper, Dish
+from fastapi_application.api.api_v1.cruds import dish_crud
+from fastapi_application.core.models import db_helper, Dish
 
 
 async def get_dish_by_id(

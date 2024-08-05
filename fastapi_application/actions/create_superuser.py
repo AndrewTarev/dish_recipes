@@ -4,15 +4,15 @@ from os import getenv
 
 from fastapi_users.exceptions import UserAlreadyExists
 
-from api.dependencies.authentication import get_users_db
-from api.dependencies.authentication import get_user_manager
-from core.authentication.user_manager import UserManager
-from core.models import (
+from fastapi_application.api.dependencies.authentication import get_users_db
+from fastapi_application.api.dependencies.authentication import get_user_manager
+from fastapi_application.core.authentication.user_manager import UserManager
+from fastapi_application.core.models import (
     db_helper,
     User,
 )
 
-from core.schemas.user import UserCreate
+from fastapi_application.core.schemas.user import UserCreate
 
 # from fastapi_users.exceptions import UserAlreadyExists
 

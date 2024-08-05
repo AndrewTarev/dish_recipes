@@ -5,8 +5,12 @@ from sqlalchemy import update, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from core.models import Recipe, User, Dish, db_helper
-from core.schemas.recipe import RecipeIn, RecipeUpdate, RecipeUpdatePartial
+from fastapi_application.core.models import Recipe, User, Dish, db_helper
+from fastapi_application.core.schemas.recipe import (
+    RecipeIn,
+    RecipeUpdate,
+    RecipeUpdatePartial,
+)
 
 
 async def create_recipe(

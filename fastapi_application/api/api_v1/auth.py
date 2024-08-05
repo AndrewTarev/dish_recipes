@@ -1,9 +1,11 @@
 from fastapi import APIRouter
 
-from api.api_v1.fastapi_users import fastapi_users
-from api.dependencies.authentication.backend import authentication_backend
-from core.config import settings
-from core.schemas.user import (
+from fastapi_application.api.api_v1.fastapi_users import fastapi_users
+from fastapi_application.api.dependencies.authentication.backend import (
+    authentication_backend,
+)
+from fastapi_application.core.config import settings
+from fastapi_application.core.schemas.user import (
     UserRead,
     UserCreate,
 )

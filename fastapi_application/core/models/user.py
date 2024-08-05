@@ -7,10 +7,10 @@ from fastapi_users_db_sqlalchemy import (
 from sqlalchemy import String
 from sqlalchemy.orm import Mapped, relationship, mapped_column
 
-from core.models import Base
-from core.models.mixins.id_int_pk import IdIntPkMixin
-from core.models.recipe import Recipe
-from core.models.types.user_id import UserIdType
+from fastapi_application.core.models import Base
+from fastapi_application.core.models.mixins.id_int_pk import IdIntPkMixin
+from fastapi_application.core.models.recipe import Recipe
+from fastapi_application.core.models.types.user_id import UserIdType
 
 if TYPE_CHECKING:
     from sqlalchemy.ext.asyncio import AsyncSession

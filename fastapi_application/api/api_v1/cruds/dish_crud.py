@@ -3,8 +3,8 @@ from sqlalchemy import select, Result
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from core.models import Dish
-from core.schemas.dish import DishIn, DishUpdate
+from fastapi_application.core.models import Dish
+from fastapi_application.core.schemas.dish import DishIn, DishUpdate
 
 
 async def get_all_dishes(session: AsyncSession) -> list[Dish]:

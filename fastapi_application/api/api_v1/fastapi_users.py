@@ -1,9 +1,13 @@
 from fastapi_users import FastAPIUsers
 
-from api.dependencies.authentication.backend import authentication_backend
-from api.dependencies.authentication.user_manager import get_user_manager
-from core.models import User
-from core.models.types.user_id import UserIdType
+from fastapi_application.api.dependencies.authentication.backend import (
+    authentication_backend,
+)
+from fastapi_application.api.dependencies.authentication.user_manager import (
+    get_user_manager,
+)
+from fastapi_application.core.models import User
+from fastapi_application.core.models.types.user_id import UserIdType
 
 
 fastapi_users = FastAPIUsers[User, UserIdType](

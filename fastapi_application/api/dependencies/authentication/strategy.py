@@ -8,7 +8,7 @@ from fastapi_users.authentication.strategy.db import (
     DatabaseStrategy,
 )
 
-from core.config import settings
+from fastapi_application.core.config import settings
 from .access_tokens import get_access_tokens_db
 
 if TYPE_CHECKING:

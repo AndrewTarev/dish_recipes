@@ -10,6 +10,4 @@ RUN pip install poetry && poetry config virtualenvs.create false && poetry insta
 
 COPY . .
 
-WORKDIR /app/fastapi_application
-
 RUN chmod a+x docker-entrypoint.sh

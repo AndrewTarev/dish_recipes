@@ -1,7 +1,7 @@
 from sqlalchemy import MetaData
 from sqlalchemy.orm import DeclarativeBase
 
-from core.config import settings
+from fastapi_application.core.config import settings
 
 
 class Base(DeclarativeBase):

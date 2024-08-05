@@ -3,17 +3,20 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from api.api_v1.cruds import recipe_crud
-from api.api_v1.cruds.recipe_crud import (
+from fastapi_application.api.api_v1.cruds import recipe_crud
+from fastapi_application.api.api_v1.cruds.recipe_crud import (
     get_recipe,
     update_recipe,
     delete_client,
     get_all_recipes_by_dish,
 )
-from api.api_v1.fastapi_users import current_active_user, current_active_superuser
-from core import settings
-from core.models import db_helper, Recipe, User
-from core.schemas.recipe import RecipeOut, RecipeIn, RecipeUpdate
+from fastapi_application.api.api_v1.fastapi_users import (
+    current_active_user,
+    current_active_superuser,
+)
+from fastapi_application.core import settings
+from fastapi_application.core.models import db_helper, Recipe, User
+from fastapi_application.core.schemas.recipe import RecipeOut, RecipeIn, RecipeUpdate
 
 from fastapi_cache.decorator import cache
 

@@ -3,11 +3,11 @@ from typing import List, TYPE_CHECKING
 from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from core.models import Base
-from core.models.mixins.id_int_pk import IdIntPkMixin
+from fastapi_application.core.models import Base
+from fastapi_application.core.models.mixins.id_int_pk import IdIntPkMixin
 
 if TYPE_CHECKING:
-    from core.models import Recipe
+    from fastapi_application.core.models import Recipe
 
 
 class Dish(Base, IdIntPkMixin):
