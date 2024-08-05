@@ -5,9 +5,9 @@ from httpx import AsyncClient, ASGITransport
 from sqlalchemy import NullPool
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
 
-from fastapi_application.core.config import settings
-from fastapi_application.core.models.common.db_helper import db_helper
-from fastapi_application.core.models.common.base import Base
+from src.core.config import settings
+from src.core.models.common.db_helper import db_helper
+from src.core.models.common.base import Base
 from main import app
 
 test_db = settings.test_db.url

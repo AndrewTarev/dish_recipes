@@ -7,10 +7,10 @@ from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
 from redis import asyncio as aioredis
 
-from fastapi_application.actions.create_superuser import create_superuser
-from fastapi_application.api import router
-from fastapi_application.core import settings
-from fastapi_application.core.models import db_helper
+from src.actions.create_superuser import create_superuser
+from src.api import router
+from src.core import settings
+from src.core.models import db_helper
 
 
 @asynccontextmanager
