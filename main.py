@@ -19,7 +19,7 @@ async def lifespan(_: FastAPI) -> AsyncIterator[None]:
     redis = aioredis.from_url(settings.redis.url)
     FastAPICache.init(RedisBackend(redis), prefix="fastapi-cache")
     # create superuser
-    await create_superuser()
+    await create_superuser(db_helper.session_factory)
     yield
     await db_helper.dispose()
 

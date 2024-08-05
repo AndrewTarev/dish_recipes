@@ -3,6 +3,7 @@ import contextlib
 from os import getenv
 
 from fastapi_users.exceptions import UserAlreadyExists
+from sqlalchemy.ext.asyncio import async_sessionmaker
 
 from fastapi_application.api.dependencies.authentication import get_users_db
 from fastapi_application.api.dependencies.authentication import get_user_manager
@@ -14,9 +15,7 @@ from fastapi_application.core.models import (
 
 from fastapi_application.core.schemas.user import UserCreate
 
-# from fastapi_users.exceptions import UserAlreadyExists
-
-# get_async_session_context = contextlib.asynccontextmanager(get_async_session)
+# get_async_session_context = contextlib.asynccontextmanager(db_helper.session_getter())
 get_users_db_context = contextlib.asynccontextmanager(get_users_db)
 get_user_manager_context = contextlib.asynccontextmanager(get_user_manager)
 
@@ -41,6 +40,7 @@ async def create_user(
 
 
 async def create_superuser(
+    db_sessionmaker: async_sessionmaker,
     email: str = default_email,
     password: str = default_password,
     nickname: str = default_nickname,
@@ -57,7 +57,7 @@ async def create_superuser(
         is_verified=is_verified,
     )
     try:
-        async with db_helper.session_factory() as session:
+        async with db_sessionmaker() as session:
             async with get_users_db_context(session) as users_db:
                 async with get_user_manager_context(users_db) as user_manager:
                     return await create_user(
