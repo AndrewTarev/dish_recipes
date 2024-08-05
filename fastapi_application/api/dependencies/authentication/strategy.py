@@ -12,7 +12,7 @@ from fastapi_application.core.config import settings
 from .access_tokens import get_access_tokens_db
 
 if TYPE_CHECKING:
-    from core.models import AccessToken
+    from fastapi_application.core.models import AccessToken
     from fastapi_users.authentication.strategy.db import AccessTokenDatabase
 
 
