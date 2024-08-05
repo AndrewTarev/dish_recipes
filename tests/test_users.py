@@ -54,11 +54,6 @@ async def test_reset_password_token(
 ) -> None:
     login = await ac.post("/api/v1/auth/forgot-password", json=UserTest.EMAIL)
     login_token = login.headers.get("Authorization")
-    if not login_token:
-        # Если токен в заголовках отсутствует, проверяем тело ответа
-        login_json = login.json()
-        login_token = login_json.get("token")
-
     response = await ac.post(
         "/api/v1/auth/reset-password",
         json={
