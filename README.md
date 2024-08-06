@@ -35,6 +35,6 @@
    git clone https://github.com/AndrewTarev/parking_app.git
 
 
-2. Запустите docker-compose командой: 
-   docker compose build
+2. Запустите docker-compose командой:  
+   docker compose build  
    docker compose up
